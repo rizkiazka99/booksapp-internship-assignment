@@ -1,0 +1,1 @@
+const baseUrl = 'https://staging.thenotary.app';
