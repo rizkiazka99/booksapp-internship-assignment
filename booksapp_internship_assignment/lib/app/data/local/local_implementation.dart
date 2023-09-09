@@ -1,39 +1,56 @@
-import 'dart:convert';
-
 import 'package:booksapp_internship_assignment/app/data/local/repository.dart';
 import 'package:booksapp_internship_assignment/app/data/model/expense_list_response.dart';
 import 'package:booksapp_internship_assignment/app/data/model/login_response.dart';
+import 'package:booksapp_internship_assignment/app/routes/app_pages.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:localstorage/localstorage.dart';
 
 class LocalImplementation extends LocalRepository {
+  final LocalStorage _storage = LocalStorage('login_response');
+
   @override
   Future saveLoginResponse(LoginResponse response) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    prefs.setInt("status", response.status);
-    prefs.setString(
-      "expense_list", 
-      jsonEncode(response.expenseList)
-    );
+    await _storage.setItem('status', response.status);
+    await _storage.setItem('expense_list', response.expenseList);
   }
 
   @override
-  Future getStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final status = prefs.getInt("status");
+  getStatus() {
+    final status = _storage.getItem('status');
     return status;
   }
 
   @override
-  Future <List<ExpenseList>> getExpenseList() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<ExpenseList> getExpenseList() {
+    if (Get.previousRoute == Routes.SPLASH) {
+      List<ExpenseList> expenses = [];
+      List res = _storage.getItem('expense_list');
+   
+      if (res.isNotEmpty) {
+        expenses = res.map((element) { 
+          return ExpenseList(
+            expenseName: element['expenseName'], 
+            description: element['description'], 
+            vendorName: element['vendorName'], 
+            notes: element['notes'], 
+            cost: element['cost'], 
+            category: element['category'], 
+            internalKeyForKnownExpenses: element['internalKeyForKnownExpenses'], 
+            serviceId: element['serviceId']
+          );
+        }).toList();
+      }
 
-    final rawExpenseList = prefs.getString("expense_list");
-    final decodedExpenseList = jsonDecode(rawExpenseList!);
-    print(decodedExpenseList);
-    List<ExpenseList>  expenseList = (decodedExpenseList as List).map((e) => ExpenseList.fromJson(e)).toList();
-    //print(expenseList);
-    return expenseList;
+      return expenses;
+    } else {
+      List<ExpenseList> expenses = _storage.getItem('expense_list');
+      return expenses;
+    }
+    
+  }
+
+  @override
+  Future clear() async {
+    await _storage.clear();
   }
 }

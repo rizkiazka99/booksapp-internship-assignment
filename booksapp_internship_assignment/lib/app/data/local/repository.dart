@@ -4,7 +4,9 @@ import 'package:booksapp_internship_assignment/app/data/model/login_response.dar
 abstract class LocalRepository {
   Future saveLoginResponse(LoginResponse response);
 
-  Future getStatus();
+  getStatus();
 
-  Future<List<ExpenseList>> getExpenseList();
+  List<ExpenseList> getExpenseList();
+
+  Future clear();
 }

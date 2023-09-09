@@ -27,12 +27,12 @@ class LoginView extends GetView<LoginController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Log In',
-                style: h3(color: primaryColor),
+                'Login',
+                style: h1(color: primaryColor),
               ),
               Text(
                 'to your account',
-                style: h5(color: primaryColor),
+                style: h3(color: primaryColor),
               ),
               const Spacer(),
               CustomForm(
@@ -41,8 +41,7 @@ class LoginView extends GetView<LoginController> {
                 controller: controller.emailController, 
                 hintText: 'E-mail',
                 prefixIcon: const Icon(
-                  Icons.mail_outline,
-                  color: primaryColor,
+                  Icons.mail_outline
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -56,12 +55,13 @@ class LoginView extends GetView<LoginController> {
                   }
                 }
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: 15.h),
               DefaultButton(
                 onTap: () {
                   controller.initiateLogin();
                 }, 
-                color: primaryColor, 
+                color: primaryColor,
+                buttonTextColor: Colors.white,
                 buttonText: 'Login'
               )
             ],

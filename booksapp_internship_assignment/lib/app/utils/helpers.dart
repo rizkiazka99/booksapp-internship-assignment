@@ -23,6 +23,7 @@ showSnackbar(String title, String message) {
 loaderDialog(Widget loaderIcon, String message) {
   return Get.dialog(
     AlertDialog(
+      surfaceTintColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
       content: Row(
         children: [

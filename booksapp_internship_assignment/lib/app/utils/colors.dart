@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const primaryColor = Color(0xFFFF6E30);
+const primaryColor = Color(0xFF642B8A);
 dynamic warningColor = Colors.yellow[700];
 dynamic successColor = Colors.green;
 //contextual color

@@ -19,6 +19,7 @@ class ConfirmationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      surfaceTintColor: Colors.white,
       actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15)
@@ -40,7 +41,8 @@ class ConfirmationDialog extends StatelessWidget {
             Expanded(
               child: DefaultButton(
                 onTap: onConfirmation, 
-                color: contextOrange, 
+                color: primaryColor,
+                buttonTextColor: Colors.white,
                 buttonText: 'Yes'
               )
             ),
@@ -50,7 +52,8 @@ class ConfirmationDialog extends StatelessWidget {
                 onTap: () {
                   Get.back();
                 }, 
-                color: contextRed, 
+                color: contextRed,
+                buttonTextColor: Colors.white,
                 buttonText: 'No'
               )
             )

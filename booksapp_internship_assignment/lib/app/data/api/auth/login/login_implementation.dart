@@ -4,6 +4,7 @@ import 'package:booksapp_internship_assignment/app/data/local/local_implementati
 import 'package:booksapp_internship_assignment/app/data/model/login_response.dart';
 import 'package:booksapp_internship_assignment/app/utils/constants.dart';
 import 'package:booksapp_internship_assignment/app/utils/dio.dart';
+import 'package:booksapp_internship_assignment/app/utils/extensions.dart';
 import 'package:booksapp_internship_assignment/app/utils/result.dart';
 import 'package:dio/dio.dart';
 
@@ -30,10 +31,19 @@ class LoginImplementation extends APIRepository {
       await _localData.saveLoginResponse(result);
       return Result.success(result);
     } on DioException catch(err) {
-      return Result.error(
-        message: err.response!.data['err'] ?? err.message,
-        code: err.response!.statusCode ?? 400
-      );
+      if (err.response!.data['err'] != null) {
+        return Result.error(
+          message: err.response!.data['err']
+              .toString()
+              .capitalizeFirstLetter(),
+          code: err.response!.statusCode ?? 400
+        );
+      } else {
+        return Result.error(
+          message: err.message!,
+          code: err.response!.statusCode ?? 400
+        );
+      }
     } catch(err) {
       return Result.error(
         message: err.toString()

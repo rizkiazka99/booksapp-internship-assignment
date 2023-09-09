@@ -11,7 +11,7 @@ void main() {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: globalNavKey,
-      title: "Application",
+      title: "BooksApp Internship Assignment",
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: primaryColor

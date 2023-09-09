@@ -59,7 +59,7 @@ class _CustomFormState extends State<CustomForm> {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: const BorderSide(
-              color: contextOrange,
+              color: primaryColor,
               width: 2
             )
           ),
